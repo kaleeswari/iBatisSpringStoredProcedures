@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+  <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL MAP 2.0//EN" 
+  			"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Student">
+
+
+	<typeAlias alias="Student" type="com.wipro.fstpg.pojo.Student" />
+
+<!-- Perform Read Operation -->
+
+	<select id="getAll" resultClass="Student">
+		select * from student
+	</select>
+	
+<!-- Perform Read Operation By Id-->
+
+	<select id="getById" parameterClass="Long" resultClass="Student">
+		select *
+		from student where stuId=#stuId#
+	</select>
+
+<!-- Perform Insert Operation -->
+
+	<insert id="insert" parameterClass="Student">
+		insert into
+		student(stuName,stuGender,stuAge)
+		values(#stuName#,#stuGender#,#stuAge#)
+	</insert>
+	
+<!-- Perform Update Operation -->
+
+	<update id="update" parameterClass="long">
+		update student
+		set
+		stuName='karthick'
+		where stuId=#stuId#
+	</update>
+	
+
+<!-- Perform Delete Operation -->
+
+	<delete id="delete" parameterClass="long">
+		delete from student where
+		stuId=#stuId#
+	</delete>
+	
+
+<!-- To call stored procedure perform read operation -->
+
+	 <procedure id="getStudentInfo" resultClass="Student">
+        { call showDetailsJoin() } 
+    </procedure>	    
+
+<!-- To call stored procedure perform read operation by Id-->
+	
+    <procedure id="getStudentInfoById" resultClass="Student" parameterClass="long">
+        { call spring.getStudent(#stuId#) } 
+    </procedure>
+ 
+</sqlMap>
